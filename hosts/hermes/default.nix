@@ -2,6 +2,7 @@
     imports = [
       ./hardware-configuration.nix
       ./services
+      ../common/global
     ];
 
     networking = {
@@ -9,7 +10,7 @@
       useDHCP = true;
       firewall = {
         enable = true;
-        allowedTCPPorts = [ 22 443 ];
+        allowedTCPPorts = [ ];
         allowedUDPPorts = [ ];
       };
     };
@@ -34,6 +35,7 @@
         KbdInteractiveAuthentication = false;
         PermitRootLogin = "no";
       };
+      openFirewall = true;
     };
 
     programs.nix-ld.enable = true;
@@ -44,14 +46,6 @@
     ];
 
     nix.settings.experimental-features = [ "nix-command" "flakes" ];  
-
-    time.timeZone = "Europe/Berlin";
-
-    i18n.defaultLocale = "en_US.UTF-8";
-    console = {
-      font = "Lat2-Terminus16";
-      keyMap = "us";
-    };
 
     system.stateVersion = "24.05";
 }
