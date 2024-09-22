@@ -1,18 +1,25 @@
-{pkgs, ...}: let
-  website = pkgs.inputs.website.default;
+let
+  domain = "philippschuetz.com";
+  port = 8000;
 in {
+
+  config.virtualisation.oci-containers.containers = {
+    hackagecompare = {
+      image = "ghcr.io/philipp-schuetz/homepage:main";
+      ports = ["127.0.0.1:${port}:80"];
+    };
+  };
+
   services.nginx.virtualHosts = {
-    "philippschuetz.com" = {
-      forceSSL = true;
-      enableACME = true;
-      locations = {
-        "/" = {
-          root = "${website}/public";
-          extraConfig = ''
-            add_header Cache-Control "max-age=${toString (minutes 5)}, stale-while-revalidate=${toString (minutes 15)}";
-          '';
-        };
+    domain = {
+      serverName = domain;
+
+      locations."/" = {
+        proxyPass = "http://127.0.0.1:${port}";
       };
+      
+      enableACME = true;
+      forceSSL = true;
     };
   };
 }
