@@ -10,8 +10,6 @@
       useDHCP = true;
       firewall = {
         enable = true;
-        allowedTCPPorts = [ ];
-        allowedUDPPorts = [ ];
       };
     };
 
