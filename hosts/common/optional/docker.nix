@@ -1,9 +1,12 @@
 {
-  virtualisation.docker = {
-    enable = true;
-    rootless = {
+  virtualisation = {
+    oci-containers.backend = "docker";
+    docker = {
       enable = true;
-      setSocketVariable = true;
+      rootless = {
+        enable = true;
+        setSocketVariable = true;
+      };
     };
   };
 }

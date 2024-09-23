@@ -68,3 +68,4 @@
 #     "/persist".directories = ["/var/lib/headscale"];
 #   };
 # }
+{}
