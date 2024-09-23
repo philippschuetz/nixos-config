@@ -1,10 +1,10 @@
 let
-  domain = "philippschuetz.com";
+  domain = "test.philippschuetz.com";
   port = 8000;
 in {
 
   config.virtualisation.oci-containers.containers = {
-    hackagecompare = {
+    homepage = {
       image = "ghcr.io/philipp-schuetz/homepage:main";
       ports = ["127.0.0.1:${port}:80"];
     };
