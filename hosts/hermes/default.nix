@@ -1,3 +1,5 @@
+{ config, pkgs, ... }:
+
 {
     imports = [
       ./hardware-configuration.nix
@@ -17,6 +19,8 @@
       isNormalUser = true;
       extraGroups = [ "wheel" ];
       packages = with pkgs; [
+        vim
+        wget
         tree
         git
       ];
@@ -37,11 +41,6 @@
     };
 
     programs.nix-ld.enable = true;
-
-    environment.systemPackages = with pkgs; [
-      vim
-      wget
-    ];
 
     nix.settings.experimental-features = [ "nix-command" "flakes" ];  
 
