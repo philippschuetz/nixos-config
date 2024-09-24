@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ pkgs, ... }:
 
 {
     imports = [
@@ -15,7 +15,7 @@
       };
     };
 
-    users.users.philipp = {
+    users.users."philipp" = {
       isNormalUser = true;
       extraGroups = [ "wheel" ];
       packages = with pkgs; [

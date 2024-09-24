@@ -1,5 +1,6 @@
 # {
-#   programs.starhip = {
+#   programs.starship = {
 #     enable = true;
 #   }
 # }
+{}

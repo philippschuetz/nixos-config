@@ -5,7 +5,7 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixos-24.05";
   };
 
-  outputs = { self, nixpkgs }:
+  outputs = {, nixpkgs }:
   let
     system = "x86_64-linux";
 

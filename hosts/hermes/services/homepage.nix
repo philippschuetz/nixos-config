@@ -5,14 +5,14 @@ in {
 
   config = {
     virtualisation.oci-containers.containers = {
-      homepage = {
+      "homepage" = {
         image = "ghcr.io/philipp-schuetz/homepage:main";
         ports = ["127.0.0.1:${port}:80"];
       };
     };
 
     services.nginx.virtualHosts = {
-      domain = {
+      "${domain}" = {
         serverName = domain;
 
         locations."/" = {
