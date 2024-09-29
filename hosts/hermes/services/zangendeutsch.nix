@@ -1,13 +1,13 @@
 let
-  domain = "test.zangendeutsch.de";
+  domain = "zangendeutsch.de";
   port = "8001";
 in {
 
   config = {
     virtualisation.oci-containers.containers = {
-      "homepage" = {
-        image = "ghcr.io/philipp-schuetz/homepage:main";
-        ports = ["127.0.0.1:${port}:80"];
+      "zangendeutsch" = {
+        image = "ghcr.io/philipp-schuetz/zangendeutsch.de:main";
+        ports = ["127.0.0.1:${port}:3000"];
       };
     };
 
