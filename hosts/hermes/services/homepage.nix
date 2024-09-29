@@ -1,5 +1,5 @@
 let
-  domain = "test.philippschuetz.com";
+  domain = "philippschuetz.com";
   port = "8000";
 in {
 
