@@ -20,11 +20,18 @@
   in
   {
     nixosConfigurations = {
-      hermes = nixpkgs.lib.nixosSystem {
+      "hermes" = nixpkgs.lib.nixosSystem {
         specialArgs = { inherit system; };
 
         modules = [
           ./hosts/hermes/default.nix
+        ];
+      };
+      "athena" = nixpkgs.lib.nixosSystem {
+        specialArgs = { inherit system; };
+
+        modules = [
+          ./hosts/athena/default.nix
         ];
       };
     };
