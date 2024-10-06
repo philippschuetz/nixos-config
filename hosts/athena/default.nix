@@ -15,7 +15,7 @@
       };
       wireless = {
         enable = true;
-        environmentFile = "../../secrets/wireless.env";
+        environmentFile = "/home/philipp/nixos-config/secrets/wireless.env";
         networks."@SSID_HOME@".psk = "@PSK_HOME@";
       };
     };
