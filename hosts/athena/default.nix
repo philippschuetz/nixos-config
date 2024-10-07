@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, inputs, config, ... }:
 
 {
     imports = [
@@ -6,6 +6,8 @@
       ./services
       ../common/global
     ];
+
+    sops.secrets."wireless.env" = { };
 
     networking = {
       hostName = "athena";
@@ -15,8 +17,8 @@
       };
       wireless = {
         enable = true;
-        environmentFile = "/home/philipp/nixos-config/secrets/wireless.env";
-        networks."@SSID_HOME@".psk = "@PSK_HOME@";
+        environmentFile = config.sops.secrets."wireless.env".path;
+        networks."@home_ssid@".psk = "@home_psk@";
       };
     };
 
@@ -28,6 +30,7 @@
         wget
         tree
         git
+        sops
       ];
       openssh.authorizedKeys.keys = [
         "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIB9IfjgOwAuY4dh4pOXJBJly4YBjC+LK/4AkpYOnbt0q philipp"
