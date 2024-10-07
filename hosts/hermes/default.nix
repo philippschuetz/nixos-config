@@ -5,6 +5,7 @@
       ./hardware-configuration.nix
       ./services
       ../common/global
+      ../common/optional/tailscale-exit-node.nix
     ];
 
     networking = {
