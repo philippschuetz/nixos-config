@@ -1,4 +1,4 @@
-{ pkgs, inputs, config, ... }: {
+{ config, ... }: {
   sops.secrets."netcup_dns.env" = { };
   security.acme = {
     defaults.email = "mail@philippschuetz.com";

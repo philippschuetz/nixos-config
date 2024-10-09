@@ -1,7 +1,7 @@
 let
   domain = "jellyfin.philippschuetz.com";
   port = 8096;
-in { pkgs, inputs, lib, config, ... }: {
+in { pkgs, config, ... }: {
   services = {
     jellyfin = {
       enable = true;
