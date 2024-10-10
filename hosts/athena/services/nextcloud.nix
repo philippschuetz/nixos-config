@@ -2,20 +2,20 @@ let
   domain = "nextcloud.philippschuetz.com";
   port = 8001;
 in { pkgs, inputs, config, ... }: {
-  environment.etc."nextcloud-admin-pass".text = "PWD";
+  sops.secrets."nextcloud/admin_pass" = { };
   services = {
     nextcloud = {
       enable = true;
       package = pkgs.nextcloud30;
       hostName = domain;
       https = true;
-      home = "/mnt/ssd-pool";
+      home = "/mnt/ssd-pool/nextcloud";
       database.createLocally = true;
       config = {
         dbtype = "pgsql";
         overwriteprotocol = "https";
         adminuser = "admin";
-        adminpassFile = "/etc/nextcloud-admin-pass";
+        adminpassFile = config.sops.secrets."nextcloud/admin_pass".path;
       };
     };
 
