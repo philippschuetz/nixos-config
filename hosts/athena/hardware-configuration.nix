@@ -1,4 +1,4 @@
-{ config, lib, modulesPath, ... }:
+{ config, lib, modulesPath, pkgs, ... }:
 
 {
   imports = [
@@ -30,6 +30,17 @@
     };
 
   swapDevices = [ ];
+
+  environment.systemPackages = with pkgs; [
+    zfs
+  ];
+
+  boot.supportedFilesystems = [ "zfs" ];
+
+  fileSystems."/mnt/ssd-pool" = {
+    device = "ssd-pool";
+    fsType = "zfs";
+  };
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
   # (the default) this is the recommended approach. When using systemd-networkd it's

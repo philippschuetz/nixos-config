@@ -11,6 +11,7 @@
 
     networking = {
       hostName = "athena";
+      hostId = "463fbe48"; # required by zfs
       useDHCP = true;
       firewall = {
         enable = true;
