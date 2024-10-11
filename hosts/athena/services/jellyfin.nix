@@ -1,46 +1,42 @@
 let
   domain = "jellyfin.philippschuetz.com";
-  port = 8096;
+  port = 8000;
 in { pkgs, config, ... }: {
-  services = {
-    jellyfin = {
-      enable = true;
-      openFirewall = true;
-      dataDir = "/mnt/ssd-pool/jellyfin";
+  config = {
+    virtualisation.oci-containers.containers = {
+      "jellyfin" = {
+        image = "jellyfin/jellyfin:10.9.11";
+        ports = ["127.0.0.1:${toString port}:8096"];
+        volumes = [
+          "/mnt/ssd-pool/jellyfin/config:/config"
+          "/mnt/ssd-pool/jellyfin/cache:/cache"
+          "/mnt/ssd-pool/data/movies:/media1:ro"
+          "/mnt/ssd-pool/data/shows:/media2:ro"
+          "/mnt/ssd-pool/data/audio:/media3:ro"
+        ];
+        autoStart = true;
+      };
     };
-
-    nginx.virtualHosts = {
+    services.nginx.virtualHosts = {
       "${domain}" = {
         serverName = domain;
 
         locations."/" = {
-          proxyPass = "http://127.0.0.1:${port}";
+          proxyPass = "http://127.0.0.1:${toString port}";
         };
         
-        enableACME = true;
+        useACMEHost = domain;
         forceSSL = true;
       };
     };
-  };
-
-  environment.systemPackages = [
-    pkgs.jellyfin
-    pkgs.jellyfin-web
-    pkgs.jellyfin-ffmpeg
-  ];
-
-  nixpkgs.config.packageOverrides = pkgs: {
-    vaapiIntel = pkgs.vaapiIntel.override { enableHybridCodec = true; };
-  };
-  hardware.graphics = { # hardware.opengl in 24.05
-    enable = true;
-    extraPackages = with pkgs; [
-      intel-media-driver
-      intel-vaapi-driver # previously vaapiIntel
-      vaapiVdpau
-      intel-compute-runtime # OpenCL filter support (hardware tonemapping and subtitle burn-in)
-      vpl-gpu-rt # QSV on 11th gen or newer
-      intel-media-sdk # QSV up to 11th gen
-    ];
+    sops.secrets."netcup_dns.env" = { };
+    security.acme.certs = {
+      "${domain}" = {
+        domain = "${domain}";
+        group = config.services.nginx.group;
+        dnsProvider = "netcup";
+        environmentFile = config.sops.secrets."netcup_dns.env".path;
+      };
+    };
   };
 }
