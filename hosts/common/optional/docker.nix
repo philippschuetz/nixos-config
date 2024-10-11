@@ -7,6 +7,7 @@
         enable = true;
         setSocketVariable = true;
       };
+      enableOnBoot = true;
     };
   };
 }
