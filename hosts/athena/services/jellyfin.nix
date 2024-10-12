@@ -8,11 +8,11 @@ in { pkgs, config, ... }: {
         image = "jellyfin/jellyfin:10.9.11";
         ports = ["127.0.0.1:${toString port}:8096"];
         volumes = [
-          "/mnt/ssd-pool/jellyfin/config:/config"
-          "/mnt/ssd-pool/jellyfin/cache:/cache"
-          "/mnt/ssd-pool/data/movies:/media1:ro"
-          "/mnt/ssd-pool/data/shows:/media2:ro"
-          "/mnt/ssd-pool/data/audio:/media3:ro"
+          "/mnt/ssd-volume/jellyfin/config:/config"
+          "/mnt/ssd-volume/jellyfin/cache:/cache"
+          "/mnt/ssd-volume/data/movies:/media1:ro"
+          "/mnt/ssd-volume/data/shows:/media2:ro"
+          "/mnt/ssd-volume/data/audio:/media3:ro"
         ];
         autoStart = true;
       };

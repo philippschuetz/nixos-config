@@ -8,7 +8,7 @@ in { pkgs, config, ... }: {
         image = "vaultwarden/server:1.32.1";
         ports = ["127.0.0.1:${toString port}:80"];
         volumes = [
-          "/mnt/ssd-pool/vaultwarden/data/:/data/"
+          "/mnt/ssd-volume/vaultwarden/data/:/data/"
         ];
         autoStart = true;
       };

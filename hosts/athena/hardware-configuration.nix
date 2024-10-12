@@ -37,8 +37,8 @@
 
   boot.supportedFilesystems = [ "zfs" ];
 
-  fileSystems."/mnt/ssd-pool" = {
-    device = "ssd-pool";
+  fileSystems."/mnt/ssd-volume" = {
+    device = "ssd-pool/ssd-volume";
     fsType = "zfs";
   };
 
