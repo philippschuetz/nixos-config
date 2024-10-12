@@ -16,7 +16,7 @@ in {
           magic_dns = true;
           nameservers = ["1.1.1.1"];
         };
-        server_url = "https://tailscale.philippschuetz.com";
+        server_url = "https://headscale.philippschuetz.com";
         metrics_listen_addr = "127.0.0.1:8095";
         logtail = {
           enabled = false;
@@ -40,7 +40,7 @@ in {
     };
 
     nginx.virtualHosts = {
-      "tailscale.philippschuetz.com" = {
+      "headscale.philippschuetz.com" = {
         forceSSL = true;
         enableACME = true;
         locations = {
