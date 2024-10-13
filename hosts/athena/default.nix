@@ -5,6 +5,7 @@
       ./hardware-configuration.nix
       ./services
       ../common/global
+      ../common/optional/ssh.nix
     ];
 
     sops.secrets."wireless.env" = { };
@@ -36,17 +37,6 @@
       openssh.authorizedKeys.keys = [
         "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIB9IfjgOwAuY4dh4pOXJBJly4YBjC+LK/4AkpYOnbt0q philipp"
       ];
-    };
-
-    services.openssh = {
-      enable = true;
-      ports = [ 22 ];
-      settings = {
-        PasswordAuthentication = false;
-        KbdInteractiveAuthentication = false;
-        PermitRootLogin = "no";
-      };
-      openFirewall = true;
     };
 
     programs.nix-ld.enable = true;
