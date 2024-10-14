@@ -1,5 +1,6 @@
 let
   domain = "syncthing.philippschuetz.com";
+  domain_tailscale = "t.syncthing.philippschuetz.com";
   port = 8384;
 in { pkgs, config, ... }: {
   config = {
@@ -51,12 +52,18 @@ in { pkgs, config, ... }: {
     services.nginx.virtualHosts = {
       "${domain}" = {
         serverName = domain;
-
         locations."/" = {
           proxyPass = "http://127.0.0.1:${toString port}";
         };
-        
         useACMEHost = domain;
+        forceSSL = true;
+      };
+      "${domain_tailscale}" = {
+        serverName = domain_tailscale;
+        locations."/" = {
+          proxyPass = "http://127.0.0.1:${toString port}";
+        };
+        useACMEHost = domain_tailscale;
         forceSSL = true;
       };
     };
@@ -64,6 +71,12 @@ in { pkgs, config, ... }: {
     security.acme.certs = {
       "${domain}" = {
         domain = "${domain}";
+        group = config.services.nginx.group;
+        dnsProvider = "netcup";
+        environmentFile = config.sops.secrets."netcup_dns.env".path;
+      };
+      "${domain_tailscale}" = {
+        domain = "${domain_tailscale}";
         group = config.services.nginx.group;
         dnsProvider = "netcup";
         environmentFile = config.sops.secrets."netcup_dns.env".path;
