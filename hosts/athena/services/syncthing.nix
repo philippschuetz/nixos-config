@@ -6,11 +6,12 @@ in { pkgs, config, ... }: {
   config = {
     services.syncthing = {
       enable = true;
-      configDir = /mnt/ssd-volume/syncthing;
-      dataDir = /mnt/ssd-volume/data;
+      configDir = "/mnt/ssd-volume/syncthing";
+      dataDir = "/mnt/ssd-volume/data";
+      guiAddress = "0.0.0.0:${toString port}";
       extraFlags = [];
-      group = "syncthing";
-      user = "syncthing";
+      user = "philipp";
+      group = "users";
       relay.enable = false;
       systemService = true;
       openDefaultPorts = true;
@@ -18,8 +19,19 @@ in { pkgs, config, ... }: {
       overrideDevices = true;
       settings = {
         folders = {
+          "notes" = {
+            devices = [ "android" ];
+            type = "sendreceive";
+            copyOwnershipFromParent = false;
+            path = "/mnt/ssd-volume/data/notes";
+            enable = true;
+            versioning = {
+              type = "simple";
+              params.keep = "10";
+            };
+          };
           "documents" = {
-            devices = [ "bigbox" ];
+            devices = [ "android" ];
             type = "sendreceive";
             copyOwnershipFromParent = false;
             path = "/mnt/ssd-volume/data/documents";
@@ -29,14 +41,15 @@ in { pkgs, config, ... }: {
               params.keep = "10";
             };
           };
-          devices = {
-            "bigbox" = {
-              addresses = [
-                "tcp://192.168.0.10:51820"
-              ];
-              id = "7CFNTQM-IMTJBHJ-3UWRDIU-ZGQJFR6-VCXZ3NB-XUH3KZO-N52ITXR-LAIYUAU";
-              autoAcceptFolders = false;
-            };
+        };
+        devices = {
+          "android" = {
+            addresses = [
+              "tcp://192.168.2.128" # local ip
+              "tcp://100.78.210.69" # tailscale ip
+            ];
+            id = "I6IQ3D7-U62B5EW-OPVIURK-4P2ANAX-UU3MCME-NVHK7EI-NK4FTIM-2JYJOQG";
+            autoAcceptFolders = false;
           };
         };
         gui = {
