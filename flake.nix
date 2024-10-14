@@ -7,6 +7,8 @@
     sops-nix.inputs.nixpkgs.follows = "nixpkgs";
   };
 
+  nix.settings.experimental-features = [ "nix-command" "flakes" ];  
+
   outputs = { self, nixpkgs, ... }@inputs:
   let
     system = "x86_64-linux";
