@@ -3,39 +3,52 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-24.05";
-    sops-nix.url = "github:Mic92/sops-nix";
-    sops-nix.inputs.nixpkgs.follows = "nixpkgs";
+    sops-nix = {
+      url = "github:Mic92/sops-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    home-manager = {
+      url = "github:nix-community/home-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];  
+  nix.settings.experimental-features = [ "nix-command" "flakes" ]; # move somewhere else
 
-  outputs = { self, nixpkgs, ... }@inputs:
+  outputs = { self, nixpkgs, home-manager, ... }@inputs:
   let
     system = "x86_64-linux";
 
     pkgs = import nixpkgs {
       inherit system;
-      
-      config = {
-        allowUnfree = true;
-      };
+      config.allowUnfree = true;
     };
   
   in
   {
     nixosConfigurations = {
+      # Webserver
       "hermes" = nixpkgs.lib.nixosSystem {
-        specialArgs = { inherit inputs; };
+        specialArgs = { inherit inputs outputs; };
 
         modules = [
           ./hosts/hermes/default.nix
         ];
       };
+      # Homeserver
       "athena" = nixpkgs.lib.nixosSystem {
-        specialArgs = { inherit inputs; };
+        specialArgs = { inherit inputs outputs; };
 
         modules = [
           ./hosts/athena/default.nix
+        ];
+      };
+      # Desktop
+      "atlas" = nixpkgs.lib.nixosSystem {
+        specialArgs = { inherit inputs outputs; };
+
+        modules = [
+          ./hosts/atlas/default.nix
         ];
       };
     };
