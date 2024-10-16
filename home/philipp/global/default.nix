@@ -30,7 +30,7 @@
     stateVersion = lib.mkDefault "24.05";
     #sessionPath = ["$HOME/.local/bin"];
     sessionVariables = {
-      FLAKE = "$HOME/coding/nixos-config";
+      FLAKE = "$HOME/nixos-config";
     };
   };
 
