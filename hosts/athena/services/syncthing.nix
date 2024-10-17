@@ -20,7 +20,7 @@ in { pkgs, config, ... }: {
       settings = {
         folders = {
           "notes" = {
-            devices = [ "android" ];
+            devices = [ "android" "mbp" ];
             type = "sendreceive";
             copyOwnershipFromParent = false;
             path = "/mnt/ssd-volume/data/notes";
@@ -31,7 +31,7 @@ in { pkgs, config, ... }: {
             };
           };
           "documents" = {
-            devices = [ "android" ];
+            devices = [ "android" "mbp" ];
             type = "sendreceive";
             copyOwnershipFromParent = false;
             path = "/mnt/ssd-volume/data/documents";

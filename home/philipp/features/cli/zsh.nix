@@ -7,7 +7,6 @@
       ll = "ls -l";
       la = "ls -A";
       l = "ls -CF";
-      ll = "ls -alF";
       ls = "ls --color=auto";
       mv = "mv -i";
       rm = "rm -i";

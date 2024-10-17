@@ -2,10 +2,15 @@
   pkgs,
   config,
   lib,
+  inputs,
   ...
 }: let
   ifTheyExist = groups: builtins.filter (group: builtins.hasAttr group config.users.groups) groups;
 in {
+  imports = [
+    inputs.home-manager.nixosModules.home-manager # TODO
+  ];
+
   sops.secrets."philipp-password" = {
     neededForUsers = true;
   };

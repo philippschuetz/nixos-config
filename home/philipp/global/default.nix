@@ -6,8 +6,10 @@
   outputs,
   ...
 }: {
-  imports =
-    [ ../features/cli ../features/nvim ];
+  imports = [
+    ../features/cli
+  #  ../features/nvim
+  ];
 
   nix = {
     package = lib.mkDefault pkgs.nix;
