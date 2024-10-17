@@ -13,8 +13,6 @@
     };
   };
 
-  nix.settings.experimental-features = [ "nix-command" "flakes" ]; # move somewhere else
-
   outputs = { self, nixpkgs, home-manager, ... }@inputs:
   let
     system = "x86_64-linux";
