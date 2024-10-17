@@ -51,6 +51,14 @@ in { pkgs, config, ... }: {
             id = "I6IQ3D7-U62B5EW-OPVIURK-4P2ANAX-UU3MCME-NVHK7EI-NK4FTIM-2JYJOQG";
             autoAcceptFolders = false;
           };
+          "mbp" = {
+            addresses = [
+              "tcp://192.168.2.132" # local ip
+              "tcp://100.123.240.45" # tailscale ip
+            ];
+            id = "6E23XOI-RJG7QUC-U2UVFJL-UONWKVG-PD236PN-DITLY3F-5H6LU35-E4T37QE";
+            autoAcceptFolders = false;
+          };
         };
         gui = {
           theme = "black";
