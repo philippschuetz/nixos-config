@@ -33,4 +33,4 @@
       FLAKE = "$HOME/nixos-config";
     };
   };
-
+}
