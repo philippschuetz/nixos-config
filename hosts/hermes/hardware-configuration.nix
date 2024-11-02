@@ -13,25 +13,25 @@
     kernelModules = [ ];
     extraModulePackages = [ ];
     loader = {
-      systemd-boot.enable = true;
+      systemd-boot.enable = true; 
       efi.canTouchEfiVariables = true;
     };
   };
   
   fileSystems."/" = {
-    device = "/dev/disk/by-uuid/5748929d-af94-4199-9fb2-e5984791ff97";
+    device = "/dev/disk/by-uuid/e5ae4c25-27e5-455b-9ca2-56c8d07058bf";
     fsType = "ext4";
   };
 
   fileSystems."/boot" = {
-    device = "/dev/disk/by-uuid/0F57-1D5D";
+    device = "/dev/disk/by-uuid/7521-D13A";
      fsType = "vfat";
      options = [ "fmask=0077" "dmask=0077" ];
   };
 
   swapDevices = [
     {
-      device = "/dev/disk/by-uuid/65f84f74-2ee4-488d-a83d-0e8f7028b6ad";
+      device = "/dev/disk/by-uuid/7fa8d219-e640-487a-a51a-90670993f13b";
     }
   ];
 
