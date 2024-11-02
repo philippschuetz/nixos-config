@@ -10,12 +10,8 @@ in {
   imports = [
     inputs.home-manager.nixosModules.home-manager # TODO
   ];
-
-  sops.secrets."philipp-password" = {
-    neededForUsers = true;
-  };
-
-  users.mutableUsers = false;
+  
+  users.mutableUsers = true;
   users.users."philipp" = {
     isNormalUser = true;
     shell = pkgs.zsh;
@@ -29,7 +25,7 @@ in {
     openssh.authorizedKeys.keys = [
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIB9IfjgOwAuY4dh4pOXJBJly4YBjC+LK/4AkpYOnbt0q philipp"
     ];
-    hashedPasswordFile = config.sops.secrets."philipp-password".path;
+    password = "initial"
     packages = [pkgs.home-manager];
   };
 
