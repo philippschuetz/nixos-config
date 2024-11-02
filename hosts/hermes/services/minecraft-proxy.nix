@@ -1,6 +1,7 @@
 {
   networking.nat = {
     enable = true;
+    externalInterface = "ens3";
     forwardPorts = [
       {
         destination = "100.104.253.34:25565"; # tailnet ip of athena
