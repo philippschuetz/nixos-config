@@ -25,7 +25,7 @@ in {
     openssh.authorizedKeys.keys = [
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIB9IfjgOwAuY4dh4pOXJBJly4YBjC+LK/4AkpYOnbt0q philipp"
     ];
-    password = "initial"
+    password = "initial";
     packages = [pkgs.home-manager];
   };
 
