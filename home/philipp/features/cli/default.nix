@@ -4,5 +4,8 @@
     ./starship.nix
     ./zsh.nix
   ];
-  home.packages = with pkgs; [ ];
+  home.packages = with pkgs; [
+    btop
+    tree
+  ];
 }
