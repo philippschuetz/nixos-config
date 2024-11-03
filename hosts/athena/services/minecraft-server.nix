@@ -27,10 +27,22 @@
     servers = {
       fabric-server = {
         enable = true;
+        autoStart = true;
         package = pkgs.fabricServers.fabric-1_21_1;
 
-        serverProperties = {};
-        whitelist = {};
+        serverProperties = {
+          difficulty = "hard";
+          gamemode = "survival";
+          max-players = 20;
+          motd = "§fCan you exit §avim§f?";
+          allow-flight = false;
+          white-list = true;
+          spawn-protection = 16;
+          simulation-distance = 16;
+          view-distance = 32;
+        };
+        
+        jvmOpts = "-Xms4096M -Xmx4096M";
 
         symlinks = {
           "mods" = pkgs.linkFarmFromDrvs "mods" (builtins.attrValues {
