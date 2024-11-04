@@ -20,7 +20,7 @@ in { pkgs, config, ... }: {
       settings = {
         folders = {
           "notes" = {
-            devices = [ "android" "mbp" ];
+            devices = [ "android" "mbp" "tumbleweed" ];
             type = "sendreceive";
             copyOwnershipFromParent = false;
             path = "/mnt/ssd-volume/data/notes";
@@ -31,7 +31,7 @@ in { pkgs, config, ... }: {
             };
           };
           "documents" = {
-            devices = [ "android" "mbp" ];
+            devices = [ "android" "mbp" "tumbleweed" ];
             type = "sendreceive";
             copyOwnershipFromParent = false;
             path = "/mnt/ssd-volume/data/documents";
@@ -57,6 +57,14 @@ in { pkgs, config, ... }: {
               "tcp://100.123.240.45" # tailscale ip
             ];
             id = "6E23XOI-RJG7QUC-U2UVFJL-UONWKVG-PD236PN-DITLY3F-5H6LU35-E4T37QE";
+            autoAcceptFolders = false;
+          };
+          "tumbleweed" = {
+            addresses = [
+              "tcp://192.168.2.203" # local ip
+              "tcp://100.94.215.90" # tailscale ip
+            ];
+            id = "3IYC6WG-Q5OCPNB-RWGCGU4-J76FWXW-A5GLRM6-2UB3KPZ-RPRIV54-2JBCOQW";
             autoAcceptFolders = false;
           };
         };
