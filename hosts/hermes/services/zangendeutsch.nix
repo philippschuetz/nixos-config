@@ -6,7 +6,7 @@ in {
   config = {
     virtualisation.oci-containers.containers = {
       "zangendeutsch" = {
-        image = "ghcr.io/philipp-schuetz/zangendeutsch.de:main";
+        image = "ghcr.io/philipp-schuetz/zangendeutsch.de:04112024084825";
         ports = ["127.0.0.1:${port}:3000"];
       };
     };
