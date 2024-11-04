@@ -26,6 +26,7 @@ in { pkgs, config, ... }: {
 
         locations."/" = {
           proxyPass = "http://127.0.0.1:${toString port}";
+          proxyWebsockets = true;
         };
         
         useACMEHost = domain;
@@ -36,6 +37,7 @@ in { pkgs, config, ... }: {
 
         locations."/" = {
           proxyPass = "http://127.0.0.1:${toString port}";
+          proxyWebsockets = true;
         };
         
         useACMEHost = domain_tailscale;
