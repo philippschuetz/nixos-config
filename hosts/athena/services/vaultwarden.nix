@@ -11,6 +11,9 @@ in { pkgs, config, ... }: {
         volumes = [
           "/mnt/ssd-volume/vaultwarden/data/:/data/"
         ];
+        environment = {
+          TZ = "Europe/Berlin";
+        };
         autoStart = true;
       };
     };
