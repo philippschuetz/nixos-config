@@ -8,5 +8,6 @@
     btop
     tree
     yazi
+    tmux
   ];
 }
