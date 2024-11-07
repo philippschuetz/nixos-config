@@ -1,5 +1,7 @@
-{ pkgs, lib, inputs, ... }:
-
+let
+  minecraftData = "/mnt/ssd-volume/minecraft-data";
+  minecraftBackup = "/mnt/ssd-volume/minecraft-backup";
+in { pkgs, lib, inputs, ... }:
 {
   imports = [ inputs.nix-minecraft.nixosModules.minecraft-servers ];
   nixpkgs.overlays = [ inputs.nix-minecraft.overlay ];
@@ -54,5 +56,35 @@
         };
       };
     };
+  };
+  systemd.services.myscript-service = {
+    description = "Minecraft server backup script";
+    startAt = "*-*-* 00:04:00";
+    serviceConfig.ExecStart = ''
+      #!/bin/bash
+      systemctl stop minecraft-server-fabric-server.service
+
+      # Variables
+      SOURCE_FOLDER="${minecraftData}"
+      DESTINATION_FOLDER="${minecraftBackup}"
+      DATE=$(date +"%d-%m-%Y")
+      TAR_FILENAME="$DATE.tar.gz"
+      TAR_FILEPATH="$DESTINATION_FOLDER/$TAR_FILENAME"
+
+      mkdir -p "$DESTINATION_FOLDER"
+
+      # Compress the folder
+      tar -czf "$TAR_FILEPATH" -C "$(dirname "$SOURCE_FOLDER")" "$(basename "$SOURCE_FOLDER")"
+
+      # Remove old backups if there are more than 7 tar.gz files in the destination folder
+      NUM_FILES=$(ls "$DESTINATION_FOLDER"/*.tar.gz 2>/dev/null | wc -l)
+      if [ "$NUM_FILES" -gt 7 ]; then
+          # Find and delete the oldest files until only 7 remain
+          ls -t "$DESTINATION_FOLDER"/*.tar.gz | tail -n +8 | xargs rm -f
+      fi
+
+      systemctl start minecraft-server-fabric-server.service
+    '';
+    wantedBy = [ "multi-user.target" ];
   };
 }
