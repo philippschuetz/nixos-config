@@ -6,7 +6,7 @@ in {
   config = {
     virtualisation.oci-containers.containers = {
       "homepage" = {
-        image = "ghcr.io/philippschuetz/homepage:04112024090438";
+        image = "ghcr.io/philippschuetz/homepage:06112024160606";
         ports = ["127.0.0.1:${port}:80"];
       };
     };
