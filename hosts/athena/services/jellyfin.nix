@@ -13,7 +13,6 @@ in { pkgs, config, ... }: {
           "/mnt/ssd-volume/jellyfin/cache:/cache"
           "/mnt/ssd-volume/data/movies:/media1:ro"
           "/mnt/ssd-volume/data/shows:/media2:ro"
-          "/mnt/ssd-volume/data/audio:/media3:ro"
         ];
         autoStart = true;
       };
