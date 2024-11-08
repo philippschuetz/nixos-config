@@ -1,8 +1,9 @@
 let
-  minecraftData = "/mnt/ssd-volume/minecraft-data";
-  minecraftBackup = "/mnt/ssd-volume/minecraft-backup";
-in { pkgs, lib, inputs, ... }:
-{
+  minecraftBase = "/mnt/ssd-volume/minecraft";
+  minecraftData = "${minecraftBase}/data";
+  minecraftRun = "${minecraftBase}/run";
+  minecraftBackup = "${minecraftBase}/backup";
+in { pkgs, lib, inputs, ... }: {
   imports = [ inputs.nix-minecraft.nixosModules.minecraft-servers ];
   nixpkgs.overlays = [ inputs.nix-minecraft.overlay ];
 
@@ -14,11 +15,10 @@ in { pkgs, lib, inputs, ... }:
     enable = true;
     eula = true;
     
-    dataDir = "/mnt/ssd-volume/minecraft-data";
-    # runDir = "/mnt/ssd-volume/minecraft-run"; deprecated, replaced by tmux socket path
+    dataDir = minecraftData;
     managementSystem.tmux = {
       enable = true;
-      socketPath = name: "/mnt/ssd-volume/minecraft-run/${name}.sock";
+      socketPath = name: "${minecraftRun}/${name}.sock";
     };
 
     openFirewall = true;
